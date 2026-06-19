@@ -46,7 +46,7 @@ const ORDER_LINKS = {
 
 function Index() {
   const [cat, setCat] = useState<(typeof categories)[number]>("All");
-  const [maxCal, setMaxCal] = useState(300);
+  const [maxCal, setMaxCal] = useState(3000);
   const [minProtein, setMinProtein] = useState(0);
   const [sort, setSort] = useState<SortKey>("default");
   const [selected, setSelected] = useState<Product | null>(null);
@@ -266,8 +266,8 @@ function Controls(props: {
       </div>
 
       <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-[1fr_1fr_auto] lg:items-end">
-        <Slider label="Max Calories" value={maxCal} min={50} max={300} step={5} unit="kcal" onChange={setMaxCal} />
-        <Slider label="Min Protein" value={minProtein} min={0} max={25} step={1} unit="g" onChange={setMinProtein} />
+        <Slider label="Max Calories" value={maxCal} min={100} max={3000} step={50} unit="kcal" onChange={setMaxCal} />
+        <Slider label="Min Protein" value={minProtein} min={0} max={200} step={5} unit="g" onChange={setMinProtein} />
         <div className="flex flex-wrap items-center gap-2">
           <SortChip active={sort === "protein-desc"} onClick={() => setSort("protein-desc")}>Highest Protein</SortChip>
           <SortChip active={sort === "calories-asc"} onClick={() => setSort("calories-asc")}>Lowest Calories</SortChip>
