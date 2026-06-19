@@ -21,6 +21,15 @@ import gCookieBites16 from "@/assets/products/gallery/cookie-bites-16-a.png";
 
 export type Category = "Desserts" | "Bites Boxes" | "Heavens Mixes" | "Cakes" | "Gathering Box";
 
+export interface PerServing {
+  label: string; // e.g. "bite", "piece", "serving", "cookie"
+  count: number; // number of servings/bites per product
+  calories?: number;
+  protein?: number;
+  carbs?: number;
+  fat?: number;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -28,10 +37,13 @@ export interface Product {
   price: number;
   oldPrice?: number;
   category: Category;
+  // Whole-product (per package) macros — used for filters & sorting
   calories?: number;
   protein?: number;
   carbs?: number;
   fat?: number;
+  // Optional per-bite / per-serving breakdown shown on the detail card
+  perServing?: PerServing;
   badges: string[];
   bestseller?: boolean;
   image?: string;
@@ -67,14 +79,15 @@ export const products: Product[] = [
     name: "Brownie Bites Box (24pc)",
     description:
       "Deliciously rich, fudgy brownie bites made with the finest Valrhona chocolate. Soft, sweet, and indulgent — ideal for sharing.",
-    note: "Per bite: 72 cal · 5g protein · 4.75g fat · 0.75g net carbs. Keto-friendly and gluten-free.",
+    note: "Keto-friendly and gluten-free.",
     price: 144,
     oldPrice: 174,
     category: "Bites Boxes",
-    calories: 72,
-    protein: 5,
-    carbs: 0.75,
-    fat: 4.75,
+    calories: 1728,
+    protein: 120,
+    carbs: 18,
+    fat: 114,
+    perServing: { label: "bite", count: 24, calories: 72, protein: 5, carbs: 0.75, fat: 4.75 },
     badges: ["Keto", "Gluten Free", "20% Off"],
   },
   {
@@ -82,13 +95,13 @@ export const products: Product[] = [
     name: "Brownie Mini Box (12pc)",
     description:
       "Fudgy chocolate brownie bites packed with rich, decadent flavor in every single piece.",
-    note: "Per bite: 72 cal · 5g protein · 4.75g fat · 0.75g net carbs.",
     price: 180,
     category: "Bites Boxes",
-    calories: 72,
-    protein: 5,
-    carbs: 0.75,
-    fat: 4.75,
+    calories: 864,
+    protein: 60,
+    carbs: 9,
+    fat: 57,
+    perServing: { label: "bite", count: 12, calories: 72, protein: 5, carbs: 0.75, fat: 4.75 },
     badges: ["Keto", "Gluten Free"],
   },
   {
@@ -96,13 +109,13 @@ export const products: Product[] = [
     name: "Heavens Chocolate Madeleines",
     description:
       "Guilt-free indulgence. 4 fluffy, chocolatey madeleines per cup — sugar-free, gluten-free.",
-    note: "Per piece: 55 cal · 5g protein. 20g protein per cup. Sweet, soft, and packed with protein.",
     price: 29,
     category: "Desserts",
-    calories: 55,
-    protein: 5,
+    calories: 220,
+    protein: 20,
     carbs: 0,
     fat: 0,
+    perServing: { label: "piece", count: 4, calories: 55, protein: 5 },
     badges: ["Sugar Free", "Gluten Free", "20g Protein / Cup"],
   },
   {
@@ -110,7 +123,7 @@ export const products: Product[] = [
     name: "Protein Bomb (Mini)",
     description:
       "Tastes like cookies, fuels like protein. Rich chocolate chip cookie flavor in every bite-sized ball.",
-    note: "100 cal · 10g protein · 2g fiber · zero added sugar. Feels like a treat, acts like fuel.",
+    note: "Feels like a treat, acts like fuel.",
     price: 15,
     category: "Desserts",
     calories: 100,
@@ -124,7 +137,6 @@ export const products: Product[] = [
     name: "Heavens Cookie Bites",
     description:
       "Warm cookie crumble and rich chocolate melt in every bite. Made with fresh ingredients.",
-    note: "Per piece: 68 cal · 6g protein · 5g fat · 0.2g net carbs. Gluten-free, keto, zero added sugar.",
     price: 29,
     category: "Desserts",
     calories: 68,
@@ -138,7 +150,6 @@ export const products: Product[] = [
     name: "Tiramisu",
     description:
       "Super yummy & super creamy tiramisu in its authentic flavor. You'd never know it was healthy.",
-    note: "282 cal · 20g protein · 21g fat · 4g carbs. Keto-friendly · gluten free.",
     price: 29,
     category: "Desserts",
     calories: 282,
@@ -151,7 +162,6 @@ export const products: Product[] = [
     id: "protein-brownie",
     name: "Protein Brownie",
     description: "Fudgy chocolate protein bombs. Guilt-free richness that fuels gains.",
-    note: "289 cal · 20g protein · 12g fat · 5g carbs.",
     price: 29,
     category: "Desserts",
     calories: 289,
@@ -164,7 +174,6 @@ export const products: Product[] = [
     id: "kinder-ic",
     name: "Kinder Ice Cream",
     description: "Creamy, rich Kinder flavor you love — now zero sugar.",
-    note: "187 cal · 20g protein · 11g fat · 5.6g carbs · zero sugar added.",
     price: 29,
     category: "Desserts",
     calories: 187,
@@ -178,7 +187,6 @@ export const products: Product[] = [
     id: "strawberry-ic",
     name: "Strawberry Ice Cream",
     description: "The most delicious strawberry flavor — creamy, yummy, healthy.",
-    note: "187 cal · 20g protein · 11g fat · 5.6g carbs · zero sugar added.",
     price: 29,
     category: "Desserts",
     calories: 187,
@@ -192,7 +200,6 @@ export const products: Product[] = [
     id: "choc-ic",
     name: "Chocolate Ice Cream",
     description: "Unbelievably creamy, rich and sweet — you'll never believe it's healthy.",
-    note: "187 cal · 20g protein · 11g fat · 5.6g carbs · zero sugar added.",
     price: 29,
     category: "Desserts",
     calories: 187,
@@ -206,7 +213,6 @@ export const products: Product[] = [
     name: "Vanilla Ice Cream",
     description:
       "Creamy. Delicious. Guilt-free. Made with real Madagascan vanilla seeds. High in taste, low in sugar — pure joy in every scoop.",
-    note: "187 cal · 20g protein · 12g fat · 5.6g carbs · zero sugar added.",
     price: 29,
     category: "Desserts",
     calories: 187,
@@ -220,13 +226,13 @@ export const products: Product[] = [
     name: "Heavens Cheesecake — The Original",
     description:
       "Rich, creamy cheesecake — no sugar added, yet irresistibly delicious. A velvety blend of smooth, natural sweetness that leaves you craving more.",
-    note: "9g protein per serving · zero sugar added.",
     price: 29,
     category: "Cakes",
     calories: 240,
     protein: 9,
     carbs: 6,
     fat: 18,
+    perServing: { label: "serving", count: 1, calories: 240, protein: 9, carbs: 6, fat: 18 },
     badges: ["No Added Sugar", "9g Protein"],
   },
   {
@@ -234,13 +240,14 @@ export const products: Product[] = [
     name: "Gathering Tiramisu",
     description:
       "A rich, creamy, guilt-free centerpiece the whole family will love. Our signature Heavens Tiramisu — now made for sharing.",
-    note: "Zero sugar · high protein · gluten-free · keto-friendly. 282 cal · 20g protein · 21g fat · 4g carbs per serving.",
+    note: "Zero sugar · high protein · gluten-free · keto-friendly.",
     price: 290,
     category: "Gathering Box",
-    calories: 282,
-    protein: 20,
-    carbs: 4,
-    fat: 21,
+    calories: 2820,
+    protein: 200,
+    carbs: 40,
+    fat: 210,
+    perServing: { label: "serving", count: 10, calories: 282, protein: 20, carbs: 4, fat: 21 },
     badges: ["Zero Sugar", "Keto", "Gluten Free"],
   },
   {
@@ -248,13 +255,14 @@ export const products: Product[] = [
     name: "Chocolate Chip Cookie Mix (Small)",
     description:
       "Soft, rich, chocolatey cookies packed with protein and made with zero sugar and no gluten. Super easy to prepare and impossible to resist.",
-    note: "Gluten free · zero sugar · high protein · low calorie. Try it once… you'll keep coming back for more.",
+    note: "Gluten free · zero sugar · high protein · low calorie.",
     price: 62,
     category: "Heavens Mixes",
     calories: 120,
     protein: 8,
     carbs: 3,
     fat: 6,
+    perServing: { label: "cookie", count: 1, calories: 120, protein: 8, carbs: 3, fat: 6 },
     badges: ["Zero Sugar", "Gluten Free", "High Protein"],
   },
   {
@@ -262,13 +270,14 @@ export const products: Product[] = [
     name: "Brownie Mix (Small)",
     description:
       "Smooth, soft brownies with deep chocolate taste, packed with protein and made with zero sugar and no gluten. Easy to prepare, consistently perfect.",
-    note: "Gluten free · zero sugar · high protein · low calorie. Ideal for fitness lovers and dieters.",
+    note: "Ideal for fitness lovers and dieters.",
     price: 62,
     category: "Heavens Mixes",
     calories: 130,
     protein: 8,
     carbs: 3,
     fat: 7,
+    perServing: { label: "brownie", count: 1, calories: 130, protein: 8, carbs: 3, fat: 7 },
     badges: ["Zero Sugar", "Gluten Free", "High Protein"],
   },
   {
@@ -276,13 +285,13 @@ export const products: Product[] = [
     name: "Brownie Mix",
     description:
       "Big flavor the smart way. Smooth, soft brownies with deep chocolate taste, packed with protein, zero sugar, gluten free.",
-    note: "Gluten free · zero sugar · high protein · low calorie. One bite… and you'll want more.",
     price: 124,
     category: "Heavens Mixes",
     calories: 130,
     protein: 8,
     carbs: 3,
     fat: 7,
+    perServing: { label: "brownie", count: 1, calories: 130, protein: 8, carbs: 3, fat: 7 },
     badges: ["Zero Sugar", "Gluten Free", "High Protein"],
   },
   {
@@ -290,13 +299,13 @@ export const products: Product[] = [
     name: "Chocolate Chip Cookie Mix",
     description:
       "Soft, rich, chocolatey cookies packed with protein and made with zero sugar and no gluten. A smarter dessert without compromising on taste.",
-    note: "Gluten free · zero sugar · high protein · low calorie.",
     price: 124,
     category: "Heavens Mixes",
     calories: 120,
     protein: 8,
     carbs: 3,
     fat: 6,
+    perServing: { label: "cookie", count: 1, calories: 120, protein: 8, carbs: 3, fat: 6 },
     badges: ["Zero Sugar", "Gluten Free", "High Protein"],
   },
   {
@@ -304,13 +313,13 @@ export const products: Product[] = [
     name: "Heavens Cookie Bites Box (24pc)",
     description:
       "Packed with warm cookie crumble and rich chocolate melt. Perfect for sharing (or not). Made with fresh ingredients.",
-    note: "Per bite: 68 cal · 6g protein · 5g fat · 0.2g net carbs. Gluten-free · keto · zero added sugar.",
     price: 150,
     category: "Bites Boxes",
-    calories: 68,
-    protein: 6,
-    carbs: 0.2,
-    fat: 5,
+    calories: 1632,
+    protein: 144,
+    carbs: 4.8,
+    fat: 120,
+    perServing: { label: "bite", count: 24, calories: 68, protein: 6, carbs: 0.2, fat: 5 },
     badges: ["Keto", "Gluten Free", "Zero Added Sugar"],
   },
   {
@@ -318,13 +327,13 @@ export const products: Product[] = [
     name: "Heavens Cookie Bites Box (16pc)",
     description:
       "Packed with warm cookie crumble and rich chocolate melt. Perfect for sharing (or not). Made with fresh ingredients.",
-    note: "Per bite: 68 cal · 6g protein · 5g fat · 0.2g net carbs. Gluten-free · keto · zero added sugar.",
     price: 110,
     category: "Bites Boxes",
-    calories: 68,
-    protein: 6,
-    carbs: 0.2,
-    fat: 5,
+    calories: 1088,
+    protein: 96,
+    carbs: 3.2,
+    fat: 80,
+    perServing: { label: "bite", count: 16, calories: 68, protein: 6, carbs: 0.2, fat: 5 },
     badges: ["Keto", "Gluten Free", "Zero Added Sugar"],
   },
 ].map((p) => {
