@@ -133,19 +133,6 @@ export const products: Product[] = [
     badges: ["Zero Added Sugar", "10g Protein"],
   },
   {
-    id: "cookie-bites",
-    name: "Heavens Cookie Bites",
-    description:
-      "Warm cookie crumble and rich chocolate melt in every bite. Made with fresh ingredients.",
-    price: 29,
-    category: "Desserts",
-    calories: 68,
-    protein: 6,
-    carbs: 0.2,
-    fat: 5,
-    badges: ["Keto", "Gluten Free", "Zero Added Sugar"],
-  },
-  {
     id: "tiramisu",
     name: "Tiramisu",
     description:
