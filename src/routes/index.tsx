@@ -488,7 +488,12 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
 
             {/* Nutrition */}
             <div className="mt-6 rounded-2xl border-2 border-foreground/80 bg-background/40 p-4">
-              <div className="text-[10px] font-bold uppercase tracking-[0.22em]">Nutrition Facts</div>
+              <div className="flex items-baseline justify-between">
+                <div className="text-[10px] font-bold uppercase tracking-[0.22em]">Nutrition Facts</div>
+                <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                  Whole {product.category === "Bites Boxes" ? "box" : product.category === "Gathering Box" ? "box" : "item"}
+                </div>
+              </div>
               <div className="mt-2 border-b-4 border-foreground/80" />
               <div className="mt-2 space-y-1 text-sm">
                 <NRow label="Calories" value={`${product.calories ?? "—"}`} bold />
@@ -501,6 +506,34 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
                 <Macro label="Carbs" value={product.carbs ?? 0} />
                 <Macro label="Fat" value={product.fat ?? 0} />
               </div>
+
+              {product.perServing && (
+                <div className="mt-4 rounded-xl border border-gold/30 bg-gold/5 p-3">
+                  <div className="flex items-baseline justify-between">
+                    <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-gold">
+                      Per {product.perServing.label}
+                    </div>
+                    <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                      {product.perServing.count} {product.perServing.label}
+                      {product.perServing.count === 1 ? "" : "s"} per pack
+                    </div>
+                  </div>
+                  <div className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
+                    {product.perServing.calories != null && (
+                      <NRow label="Calories" value={`${product.perServing.calories}`} />
+                    )}
+                    {product.perServing.protein != null && (
+                      <NRow label="Protein" value={`${product.perServing.protein}g`} highlight />
+                    )}
+                    {product.perServing.carbs != null && (
+                      <NRow label="Net Carbs" value={`${product.perServing.carbs}g`} />
+                    )}
+                    {product.perServing.fat != null && (
+                      <NRow label="Fat" value={`${product.perServing.fat}g`} />
+                    )}
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="mt-6">
