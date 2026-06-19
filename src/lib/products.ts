@@ -21,6 +21,15 @@ import gCookieBites16 from "@/assets/products/gallery/cookie-bites-16-a.png";
 
 export type Category = "Desserts" | "Bites Boxes" | "Heavens Mixes" | "Cakes" | "Gathering Box";
 
+export interface PerServing {
+  label: string; // e.g. "bite", "piece", "serving", "cookie"
+  count: number; // number of servings/bites per product
+  calories?: number;
+  protein?: number;
+  carbs?: number;
+  fat?: number;
+}
+
 export interface Product {
   id: string;
   name: string;
@@ -28,10 +37,13 @@ export interface Product {
   price: number;
   oldPrice?: number;
   category: Category;
+  // Whole-product (per package) macros — used for filters & sorting
   calories?: number;
   protein?: number;
   carbs?: number;
   fat?: number;
+  // Optional per-bite / per-serving breakdown shown on the detail card
+  perServing?: PerServing;
   badges: string[];
   bestseller?: boolean;
   image?: string;
