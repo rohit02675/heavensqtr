@@ -46,7 +46,7 @@ const ORDER_LINKS = {
 
 function Index() {
   const [cat, setCat] = useState<(typeof categories)[number]>("All");
-  const [maxCal, setMaxCal] = useState(300);
+  const [maxCal, setMaxCal] = useState(3000);
   const [minProtein, setMinProtein] = useState(0);
   const [sort, setSort] = useState<SortKey>("default");
   const [selected, setSelected] = useState<Product | null>(null);
