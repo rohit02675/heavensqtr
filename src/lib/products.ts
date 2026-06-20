@@ -6,7 +6,7 @@ import gProteinBombMini from "@/assets/products/gallery/protein-bomb-mini-a.png"
 import gCookieBites from "@/assets/products/gallery/cookie-bites-a.png";
 import gTiramisu from "@/assets/products/gallery/tiramisu-a.png";
 import gProteinBrownie from "@/assets/products/gallery/protein-brownie-a.png";
-import gKinderIc from "@/assets/products/gallery/kinder-ic-a.png";
+import gOreoIc from "@/assets/products/gallery/oreo-ic-a.png";
 import gStrawberryIc from "@/assets/products/gallery/strawberry-ic-a.png";
 import gChocIc from "@/assets/products/gallery/choc-ic-a.png";
 import gVanillaIc from "@/assets/products/gallery/vanilla-ic-a.png";
@@ -60,11 +60,10 @@ const GALLERIES: Record<string, string[]> = {
   "brownie-mini-12": [gBrownieMini12],
   "madeleines": [gMadeleines],
   "protein-bomb-mini": [gProteinBombMini],
-  "heavens-cookie-bites": [gCookieBites],
+  "heavens-cookie-bites": [gCookieBites, gCookieBites24],
   "tiramisu": [gTiramisu],
   "protein-brownie": [gProteinBrownie],
-  "kinder-ic": [gKinderIc],
-  "oreo-ic": [],
+  "oreo-ic": [gOreoIc],
   "strawberry-ic": [gStrawberryIc],
   "choc-ic": [gChocIc],
   "vanilla-ic": [gVanillaIc],
