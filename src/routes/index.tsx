@@ -487,54 +487,63 @@ function ProductModal({ product, onClose }: { product: Product; onClose: () => v
             </div>
 
             {/* Nutrition */}
-            <div className="mt-6 rounded-2xl border-2 border-foreground/80 bg-background/40 p-4">
-              <div className="flex items-baseline justify-between">
-                <div className="text-[10px] font-bold uppercase tracking-[0.22em]">Nutrition Facts</div>
-                <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                  Whole {product.category === "Bites Boxes" ? "box" : product.category === "Gathering Box" ? "box" : "item"}
+            {(product.calories != null ||
+              product.protein != null ||
+              product.carbs != null ||
+              product.fat != null ||
+              product.fiber != null) && (
+              <div className="mt-6 rounded-2xl border-2 border-foreground/80 bg-background/40 p-4">
+                <div className="flex items-baseline justify-between">
+                  <div className="text-[10px] font-bold uppercase tracking-[0.22em]">Nutrition Facts</div>
+                  <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                    Whole {product.category === "Bites Boxes" || product.category === "Gathering Box" ? "box" : "item"}
+                  </div>
                 </div>
-              </div>
-              <div className="mt-2 border-b-4 border-foreground/80" />
-              <div className="mt-2 space-y-1 text-sm">
-                <NRow label="Calories" value={`${product.calories ?? "—"}`} bold />
-                <NRow label="Protein" value={`${product.protein ?? "—"}g`} highlight />
-                <NRow label="Net Carbs" value={`${product.carbs ?? "—"}g`} />
-                <NRow label="Fat" value={`${product.fat ?? "—"}g`} />
-              </div>
-              <div className="mt-4 grid grid-cols-3 gap-2">
-                <Macro label="Protein" value={product.protein ?? 0} />
-                <Macro label="Carbs" value={product.carbs ?? 0} />
-                <Macro label="Fat" value={product.fat ?? 0} />
-              </div>
+                <div className="mt-2 border-b-4 border-foreground/80" />
+                <div className="mt-2 space-y-1 text-sm">
+                  {product.calories != null && <NRow label="Calories" value={`${product.calories}`} bold />}
+                  {product.protein != null && <NRow label="Protein" value={`${product.protein}g`} highlight />}
+                  {product.carbs != null && <NRow label="Net Carbs" value={`${product.carbs}g`} />}
+                  {product.fat != null && <NRow label="Fat" value={`${product.fat}g`} />}
+                  {product.fiber != null && <NRow label="Fiber" value={`${product.fiber}g`} />}
+                </div>
+                {(product.protein != null || product.carbs != null || product.fat != null) && (
+                  <div className="mt-4 grid grid-cols-3 gap-2">
+                    {product.protein != null && <Macro label="Protein" value={product.protein} />}
+                    {product.carbs != null && <Macro label="Carbs" value={product.carbs} />}
+                    {product.fat != null && <Macro label="Fat" value={product.fat} />}
+                  </div>
+                )}
 
-              {product.perServing && (
-                <div className="mt-4 rounded-xl border border-gold/30 bg-gold/5 p-3">
-                  <div className="flex items-baseline justify-between">
-                    <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-gold">
-                      Per {product.perServing.label}
+                {product.perServing && (
+                  <div className="mt-4 rounded-xl border border-gold/30 bg-gold/5 p-3">
+                    <div className="flex items-baseline justify-between">
+                      <div className="text-[10px] font-bold uppercase tracking-[0.22em] text-gold">
+                        Per {product.perServing.label}
+                      </div>
+                      <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+                        {product.perServing.count} {product.perServing.label}
+                        {product.perServing.count === 1 ? "" : "s"} per pack
+                      </div>
                     </div>
-                    <div className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
-                      {product.perServing.count} {product.perServing.label}
-                      {product.perServing.count === 1 ? "" : "s"} per pack
+                    <div className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
+                      {product.perServing.calories != null && (
+                        <NRow label="Calories" value={`${product.perServing.calories}`} />
+                      )}
+                      {product.perServing.protein != null && (
+                        <NRow label="Protein" value={`${product.perServing.protein}g`} highlight />
+                      )}
+                      {product.perServing.carbs != null && (
+                        <NRow label="Net Carbs" value={`${product.perServing.carbs}g`} />
+                      )}
+                      {product.perServing.fat != null && (
+                        <NRow label="Fat" value={`${product.perServing.fat}g`} />
+                      )}
                     </div>
                   </div>
-                  <div className="mt-2 grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
-                    {product.perServing.calories != null && (
-                      <NRow label="Calories" value={`${product.perServing.calories}`} />
-                    )}
-                    {product.perServing.protein != null && (
-                      <NRow label="Protein" value={`${product.perServing.protein}g`} highlight />
-                    )}
-                    {product.perServing.carbs != null && (
-                      <NRow label="Net Carbs" value={`${product.perServing.carbs}g`} />
-                    )}
-                    {product.perServing.fat != null && (
-                      <NRow label="Fat" value={`${product.perServing.fat}g`} />
-                    )}
-                  </div>
-                </div>
-              )}
-            </div>
+                )}
+              </div>
+            )}
 
             <div className="mt-6">
               <div className="mb-2 text-[11px] font-bold uppercase tracking-[0.22em] text-muted-foreground">
