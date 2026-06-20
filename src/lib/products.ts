@@ -178,19 +178,6 @@ export const products: Product[] = [
     badges: ["20g Protein"],
   },
   {
-    id: "kinder-ic",
-    name: "Kinder Ice Cream",
-    description: "Creamy, rich Kinder flavor you love — now zero sugar.",
-    price: 29,
-    category: "Desserts",
-    calories: 187,
-    protein: 20,
-    carbs: 5.6,
-    fat: 11,
-    badges: ["Bestseller", "Zero Sugar", "20g Protein"],
-    bestseller: true,
-  },
-  {
     id: "strawberry-ic",
     name: "Strawberry Ice Cream",
     description:
@@ -230,25 +217,12 @@ export const products: Product[] = [
     badges: ["Zero Sugar", "20g Protein"],
   },
   {
-    id: "cheesecake",
-    name: "Heavens Cheesecake — The Original",
-    description:
-      "Rich, creamy cheesecake — no sugar added, yet irresistibly delicious. A velvety blend of smooth, natural sweetness that leaves you craving more.",
-    price: 29,
-    category: "Cakes",
-    calories: 240,
-    protein: 9,
-    carbs: 6,
-    fat: 18,
-    badges: ["No Added Sugar", "9g Protein"],
-  },
-  {
     id: "gathering-tiramisu",
     name: "Gathering Tiramisu",
     description:
       "A rich, creamy, guilt-free centerpiece the whole family will love. Zero sugar. High protein. Gluten-free. Keto-friendly. Our signature Heavens Tiramisu — now made for sharing.",
     price: 290,
-    category: "Gathering Box",
+    category: "Cakes",
     badges: ["Zero Sugar", "Keto", "Gluten Free"],
   },
   {
